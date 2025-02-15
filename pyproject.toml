@@ -2,3 +2,25 @@
 name = "ksoft"
 version = "0.1.0"
 description = "CLI tool for development environments"
+authors = ["Your Name <your.email@example.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/khulnasoft/ksoft-cli"
+repository = "https://github.com/khulnasoft/ksoft-cli"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+click = "*"
+rich = "*" 
+fastapi = "*"
+uvicorn = "*"
+sqlalchemy = "*"
+pydantic = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2"
+black = "*"
+httpx = "*"
+
+[tool.poetry.scripts]
+ksoft = "ksoft.main:cli"

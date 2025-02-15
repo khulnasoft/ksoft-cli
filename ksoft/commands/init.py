@@ -14,9 +14,15 @@ def init():
     with Progress() as progress:
         task = progress.add_task("[cyan]Creating virtual environment...[/cyan]", total=1)
         if not os.path.exists(".venv"):
-            subprocess.run(["python", "-m", "venv", ".venv"])
+            result = subprocess.run(["python", "-m", "venv", ".venv"], check=True)
+            if result.returncode != 0:
+                console.print("[bold red]❌ Failed to create virtual environment.[/bold red]")
+                return
         progress.update(task, advance=1)
-        console.print("[bold green]✅ Virtual environment created.[/bold green]")
+        result = subprocess.run(["pip", "install", "-r", "requirements.txt"], check=True)
+        if result.returncode != 0:
+            console.print("[bold red]❌ Failed to install dependencies.[/bold red]")
+            return
 
         task = progress.add_task("[cyan]Installing dependencies...[/cyan]", total=1)
         subprocess.run(["pip", "install", "-r", "requirements.txt"])

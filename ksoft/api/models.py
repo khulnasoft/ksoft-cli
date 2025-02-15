@@ -1,26 +1,29 @@
-from sqlalchemy import Column, Integer, String, DateTime, func
+from datetime import datetime
+from typing import Optional
+from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 Base = declarative_base()
 
-# SQLAlchemy Database Model
 class Module(Base):
     __tablename__ = "modules"
-
+    
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, unique=True, nullable=False)
+    name = Column(String, unique=True, index=True)
     description = Column(String, nullable=True)
-    created_at = Column(DateTime, default=func.now())
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-# Pydantic Schema for API Requests/Responses
 class ModuleCreate(BaseModel):
     name: str
-    description: str = None
+    description: Optional[str] = None
+    
+    model_config = ConfigDict(from_attributes=True)
 
 class ModuleResponse(ModuleCreate):
     id: int
-    created_at: DateTime
-
-    class Config:
-        from_attributes = True
+    created_at: datetime
+    updated_at: datetime
+    
+    model_config = ConfigDict(from_attributes=True)

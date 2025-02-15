@@ -5,7 +5,7 @@ from rich.table import Table
 
 console = Console()
 
-@click.command(name="list")
+@click.command()
 def list_modules():
     """[cyan]List available modules.[/cyan]"""
     module_dir = "ksoft/modules"

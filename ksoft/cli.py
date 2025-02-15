@@ -19,10 +19,14 @@ def init():
 @click.option("--description", default="", help="Description of the module")
 def add(name, description):
     """Add a new module"""
-    db = next(get_db())
-    module = add_module(db, name, description)
-    click.echo(f"✅ Module '{module.name}' added successfully!")
-    db.close()
+    try:
+        db = next(get_db())
+        module = add_module(db, name, description)
+        click.echo(f"✅ Module '{module.name}' added successfully!")
+    except Exception as e:
+        click.echo(f"❌ Error: {str(e)}")
+    finally:
+        db.close()
 
 @cli.command()
 def list():

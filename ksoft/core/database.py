@@ -1,10 +1,8 @@
 from sqlalchemy.orm import Session
 from ksoft.core.bootstrap import SessionLocal
+from ksoft.api.models import Module
 
-# Dependency to get database session
 def get_db():
-    db = SessionLocal()
-    try:
+    """Dependency to get database session"""
+    with SessionLocal() as db:
         yield db
-    finally:
-        db.close()
