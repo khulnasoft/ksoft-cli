@@ -11,7 +11,7 @@ repository = "https://github.com/khulnasoft/ksoft-cli"
 [tool.poetry.dependencies]
 python = "^3.8"
 click = "*"
-rich = "*" 
+rich = "*"
 fastapi = "*"
 uvicorn = "*"
 sqlalchemy = "*"
@@ -21,6 +21,7 @@ pydantic = "*"
 pytest = "^6.2"
 black = "*"
 httpx = "*"
+pre-commit = "*"  # Add this line
 
 [tool.poetry.scripts]
 ksoft = "ksoft.main:cli"
