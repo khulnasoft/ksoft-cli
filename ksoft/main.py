@@ -1,19 +1,19 @@
-import click
-from rich.console import Console
-from rich.panel import Panel
-from ksoft.commands import init, add, list_modules, start_api
+from fastapi import FastAPI
 
-console = Console()
+from ksoft.api.routes import router
+from ksoft.core.bootstrap import init_db  # Corrected import
 
-@click.group()
-def cli():
-    """[bold blue]🚀 KSoft[/bold blue] - A Developer Environment Tool"""
-    console.print(Panel.fit("[cyan]Welcome to KSoft - Your Dev Environment Manager![/cyan]", title="🔥 KSoft", style="bold magenta"))
+app = FastAPI(title="KSoft API")
 
-cli.add_command(init)
-cli.add_command(add)
-cli.add_command(list_modules)
-cli.add_command(start_api)
+
+@app.on_event("startup")
+def startup():
+    init_db()
+
+
+app.include_router(router)
 
 if __name__ == "__main__":
-    cli()
+    import uvicorn
+
+    uvicorn.run(app, host="127.0.0.1", port=8000)
