@@ -9,10 +9,6 @@ def add_module(db: Session, name: str, description: str = None):
     db.refresh(new_module)
     return new_module
 
-# Function to list all modules
-def list_modules(db: Session):
-    return db.query(Module).all()
-
 # Function to get a module by name
 def get_module(db: Session, name: str):
     return db.query(Module).filter(Module.name == name).first()
