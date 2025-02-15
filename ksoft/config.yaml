@@ -1,0 +1,17 @@
+database:
+  url: "sqlite:///./ksoft.db"
+  echo: false
+  pool_size: 5
+
+api:
+  host: "127.0.0.1"
+  port: 8000
+  debug: true
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(levelname)s - %(message)s"
+
+cli:
+  prompt: "ksoft> "
+  theme: "default"
